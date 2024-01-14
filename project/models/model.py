@@ -8,12 +8,15 @@ from torchvision import datasets
 import torchvision.transforms as transforms
 from torch.nn import Sequential, Conv2d, ReLU, MaxPool2d, BatchNorm2d
 from torch.utils.data import DataLoader
-from pytorch_lightning import LightningModule, loggers
+from pytorch_lightning import LightningModule
 from pytorch_lightning.callbacks.early_stopping import EarlyStopping
 
 
 class CNN(LightningModule):
-    """Basic convolutional neural network class.
+    """
+    Basic convolutional neural network class.
+    The kernel size, first layer's channels and
+    the batch size can be specified
 
     Args:
 
@@ -21,14 +24,13 @@ class CNN(LightningModule):
 
     def __init__(self,
                  kernel_size=3,
-                 channels=32,
-                 stride=1,
-                 padding=0,
+                 channels=3,
                  batch_size=2,
+                 lr=1e-4,
                  img_dim=(256, 256)) -> None:
         super().__init__()
         self.conv = Sequential(
-            Conv2d(in_channels=32, out_channels=32, kernel_size=kernel_size),
+            Conv2d(in_channels=channels, out_channels=32, kernel_size=kernel_size),
             ReLU(),
             MaxPool2d(kernel_size=2),
             BatchNorm2d(32),
@@ -60,16 +62,17 @@ class CNN(LightningModule):
         )
         self.classifier = nn.Sequential(
             nn.Flatten(),
-            nn.Linear(246016, 128),
+            nn.Linear(256, 128),
             nn.Dropout(),
             nn.Linear(128, 21)
         )
         self.loss_function = nn.CrossEntropyLoss()
-        self.optimiser = optim.Adam(self.parameters(), lr=1e-3)
+        self.optimiser = optim.Adam(self.parameters(), lr=lr)
         self.transform = transforms.ToTensor()
         self.batch_size = batch_size
         self.img_dim = img_dim
         self.channels = channels
+        self.lr = lr
 
     def forward(self, x):
         # make sure input tensor is flattened
@@ -101,17 +104,17 @@ class CNN(LightningModule):
         ])
 
     def train_dataloader(self):
-        path = os.path.join(os.getcwd(), 'data/raw/images_train_test_val/train')
+        path = os.path.join(os.getcwd(), 'data', 'landuse-scene-classification', 'images_train_test_val', 'train')
         dataset = datasets.ImageFolder(path, transform=self.image_transform())
         return DataLoader(dataset, batch_size=self.batch_size, shuffle=True, )
 
     def test_dataloader(self):
-        path = os.path.join(os.getcwd(), 'data/raw/images_train_test_val/test')
+        path = os.path.join(os.getcwd(), 'data', 'landuse-scene-classification', 'images_train_test_val', 'test')
         dataset = datasets.ImageFolder(path, transform=self.image_transform())
         return DataLoader(dataset, batch_size=self.batch_size, shuffle=True)
 
     def val_dataloader(self):
-        path = os.path.join(os.getcwd(), 'data/raw/images_train_test_val/validation')
+        path = os.path.join(os.getcwd(), 'data', 'landuse-scene-classification', 'images_train_test_val', 'validation')
         dataset = datasets.ImageFolder(path, transform=self.image_transform())
         return DataLoader(dataset, batch_size=self.batch_size, shuffle=True)
 
@@ -120,7 +123,7 @@ class CNN(LightningModule):
 
 
 if __name__ == '__main__':
-    from pytorch_lightning import Trainer
+    from pytorch_lightning import Trainer, loggers
 
     trainer = Trainer(
         accelerator='cpu',
