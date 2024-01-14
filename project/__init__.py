@@ -1,2 +1,2 @@
-from project.models.model import MyNeuralNet
+from project.models.model import CNN
 from project.predict_model import predict
