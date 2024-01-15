@@ -14,7 +14,7 @@ def make_dataset():
         None
 
     """
-    od.download(dataset_URL, data_dir="data/", unzip=True)
+    od.download(dataset_URL, data_dir="Data/", unzip=True)
 
 
 if __name__ == "__main__":
