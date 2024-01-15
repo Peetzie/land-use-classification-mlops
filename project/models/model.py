@@ -129,12 +129,12 @@ class CNN(LightningModule):
 
         return transforms.Compose(
             [
-                transforms.Resize(self.img_dim),
+                transforms.Resize((self.img_dim, self.img_dim)),
                 transforms.ToTensor(),
             ]
         )
 
-    def train_dataloader(self, current_dir):
+    def train_dataloader(self):
         """
         Loads the training data from the specified path and applies the image transformer.
         Sets the dataloader's num_workers according to the number of available CPU
@@ -145,7 +145,7 @@ class CNN(LightningModule):
         """
         path = os.path.join(
             os.getcwd(),
-            "data",
+            "Data",
             "landuse-scene-classification",
             "images_train_test_val",
             "train",
@@ -157,7 +157,7 @@ class CNN(LightningModule):
             shuffle=True,
         )
 
-    def test_dataloader(self, current_dir):
+    def test_dataloader(self):
         """
         Loads the testing data from the specified path and applies the image transformer.
         Sets the dataloader's num_workers according to the number of available CPU
@@ -168,7 +168,7 @@ class CNN(LightningModule):
         """
         path = os.path.join(
             os.getcwd(),
-            "data",
+            "Data",
             "landuse-scene-classification",
             "images_train_test_val",
             "test",
@@ -176,7 +176,7 @@ class CNN(LightningModule):
         dataset = datasets.ImageFolder(path, transform=self.image_transform())
         return DataLoader(dataset, batch_size=self.batch_size, shuffle=True)
 
-    def val_dataloader(self, current_dir):
+    def val_dataloader(self):
         """
         Loads the valdation data from the specified path and applies the image transformer.
         Sets the dataloader's num_workers according to the number of available CPU
@@ -187,7 +187,7 @@ class CNN(LightningModule):
         """
         path = os.path.join(
             os.getcwd(),
-            "data",
+            "Data",
             "landuse-scene-classification",
             "images_train_test_val",
             "validation",
