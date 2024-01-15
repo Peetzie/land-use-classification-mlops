@@ -4,7 +4,7 @@ import hydra
 
 @hydra.main(config_name="configs/basic.yaml")
 def main(cfg):
-    print(cfg.hyperparameters.batch_size, cfg.hyperparameters.learning_rate)
+    print(cfg.configs.hyperparameters.batch_size, cfg.configs.hyperparameters.learning_rate)
 
 
 if __name__ == "__main__":
