@@ -8,3 +8,5 @@ tqdm
 seaborn
 opendatasets
 wandb
+dvc
+dvc[gdrive]
