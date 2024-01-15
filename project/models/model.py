@@ -65,7 +65,7 @@ class CNN(LightningModule):
             BatchNorm2d(64),
         )
         self.classifier = nn.Sequential(
-            nn.Flatten(), nn.Linear(256, 128), nn.Dropout(), nn.Linear(128, 21)
+            nn.Flatten(), nn.Linear(256, 128), nn.Dropout(), nn.Linear(128, 21), nn.Softmax(dim=-1)
         )
         self.loss_function = nn.CrossEntropyLoss()
         self.optimiser = optim.Adam(self.parameters(), lr=lr)

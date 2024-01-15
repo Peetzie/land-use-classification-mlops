@@ -180,3 +180,5 @@ project/data/kaggle.json
 kaggle.json
 /Data
 wandb
+project/outputs
+data/landuse-scene-classification
