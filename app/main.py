@@ -105,26 +105,51 @@ def contains_email_domain(data: Item):
 
 
 @app.post("/cv_model/")
-async def cv_model(data: UploadFile, out_path: Optional[str] = '', h: Optional[int] = 256, w: Optional[int] = 256):
+async def cv_model(data: UploadFile, out_path: Optional[str] = '', n: Optional[int] = 5, h: Optional[int] = 256, w: Optional[int] = 256):
     """Simple function using open-cv to resize an image."""
     with open(out_path + 'image.png', "wb") as image:
         content = await data.read()
         image.write(content)
         image.close()
-    # model = CNN()
+    model = CNN()
 
     img = cv2.imread(out_path + "image.png")
-    # img_tensor = torch.tensor(img)
-    # pred = torch.argmax(model(img_tensor))
+    img_tensor = torch.tensor(img, dtype=torch.float32).reshape(torch.Size([1, model.channels, *model.img_dim]))
+    logits = model(img_tensor).squeeze()
+    pred = torch.argsort(logits, descending=True).squeeze()[:n]
 
     res = cv2.resize(img, (h, w))
     cv2.imwrite(out_path + "image_resize.png", res)
+
+    class_dict = {
+        0: "agricultural",
+        1: "airplane",
+        2: "baseballdiamond",
+        3: "beach",
+        4: "buildings",
+        5: "chaparral",
+        6: "denseresidential",
+        7: "forest",
+        8: "freeway",
+        9: "golfcourse",
+        10: "intersection",
+        11: "mediumresidential",
+        12: "mobilehomepark",
+        13: "overpass",
+        14: "parkinglot",
+        15: "river",
+        16: "runway",
+        17: "sparseresidential",
+        18: "storagetanks",
+        19: "tenniscourt",
+        20: "harbor"
+    }
 
     response = {
         "input": data,
         "output": FileResponse(out_path + "image_resize.png"),
         "message": HTTPStatus.OK.phrase,
         "status-code": HTTPStatus.OK,
-        # "pred": pred
+        "probability_dictionary": {class_dict[el.item()]: logits[el].item() for el in pred},
     }
     return response
