@@ -11,3 +11,7 @@ wandb
 dvc
 dvc[gdrive]
 ruff
+fastapi
+pydantic
+opencv-python
+uvicorn[standard]
