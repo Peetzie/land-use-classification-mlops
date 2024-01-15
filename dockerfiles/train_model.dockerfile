@@ -8,10 +8,11 @@ RUN apt update && \
 COPY requirements.txt requirements.txt
 COPY pyproject.toml pyproject.toml
 COPY project/ project/
+
 COPY Data/ Data/
 
 WORKDIR /
 RUN --mount=type=cache,target=/home/peetz/.cache/pip pip install -r requirements.txt --no-cache-dir
 
 
-ENTRYPOINT ["python", "-u", "project/train_model.py"]
+ENTRYPOINT ["python", "-u", "project/train_model.py"]7

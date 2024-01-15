@@ -3,13 +3,15 @@ import torch
 import wandb
 from torch import nn
 from torch import optim
-
+from omegaconf import OmegaConf
 from torchvision import datasets
 import torchvision.transforms as transforms
 from torch.nn import Sequential, Conv2d, ReLU, MaxPool2d, BatchNorm2d
 from torch.utils.data import DataLoader
 from pytorch_lightning import LightningModule
 from pytorch_lightning.callbacks.early_stopping import EarlyStopping
+
+import hydra
 
 
 class CNN(LightningModule):
@@ -36,6 +38,7 @@ class CNN(LightningModule):
         img_dim: (int, int) = (256, 256),
     ) -> None:
         super().__init__()
+
         self.conv = Sequential(
             Conv2d(in_channels=channels, out_channels=32, kernel_size=kernel_size),
             ReLU(),
