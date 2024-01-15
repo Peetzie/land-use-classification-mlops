@@ -3,7 +3,6 @@ import torch
 import wandb
 from torch import nn
 from torch import optim
-from omegaconf import OmegaConf
 from torchvision import datasets
 import torchvision.transforms as transforms
 from torch.nn import Sequential, Conv2d, ReLU, MaxPool2d, BatchNorm2d
@@ -35,7 +34,7 @@ class CNN(LightningModule):
         channels: int = 3,
         batch_size: int = 2,
         lr: float = 1e-4,
-        img_dim: (int, int) = (256, 256),
+        img_dim: int = 256,
     ) -> None:
         super().__init__()
 
@@ -135,7 +134,7 @@ class CNN(LightningModule):
             ]
         )
 
-    def train_dataloader(self):
+    def train_dataloader(self, current_dir):
         """
         Loads the training data from the specified path and applies the image transformer.
         Sets the dataloader's num_workers according to the number of available CPU
@@ -158,7 +157,7 @@ class CNN(LightningModule):
             shuffle=True,
         )
 
-    def test_dataloader(self):
+    def test_dataloader(self, current_dir):
         """
         Loads the testing data from the specified path and applies the image transformer.
         Sets the dataloader's num_workers according to the number of available CPU
@@ -177,7 +176,7 @@ class CNN(LightningModule):
         dataset = datasets.ImageFolder(path, transform=self.image_transform())
         return DataLoader(dataset, batch_size=self.batch_size, shuffle=True)
 
-    def val_dataloader(self):
+    def val_dataloader(self, current_dir):
         """
         Loads the valdation data from the specified path and applies the image transformer.
         Sets the dataloader's num_workers according to the number of available CPU
