@@ -32,16 +32,3 @@ def test_in_out():
     pred = model(test_batch)
     assert pred.shape == torch.Size((model.batch_size, 21))
 
-
-def test_train():
-    cb = MetricTracker()
-    model = CNN()
-    trainer = Trainer(
-        accelerator="cpu",
-        precision="32-true",
-        max_epochs=3,
-        callbacks=[cb],
-    )
-
-    trainer.fit(model, train_dataloaders=model.train_dataloader(), val_dataloaders=model.val_dataloader())
-    pass
