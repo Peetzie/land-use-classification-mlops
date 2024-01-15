@@ -11,6 +11,7 @@ COPY project/ project/
 COPY Data/ Data/
 
 WORKDIR /
-RUN --mount=type=cache,target=~/pip/.cache pip install -r requirements.txt --no-cache-dir
+RUN --mount=type=cache,target=/home/peetz/.cache/pip pip install -r requirements.txt --no-cache-dir
+
 
 ENTRYPOINT ["python", "-u", "project/train_model.py"]
