@@ -7,7 +7,12 @@ data_folder = "landuse-scene-classification"
 
 def make_dataset():
     """
-    Downloads the dataset into data and extracts the content.asdijsdijasdijasdijasidj
+    Description:
+        Downloads the dataset into data and extracts the content using the opendatasets library.
+        Important to have the kaggle.json file in the root folder.
+    Returns:
+        None
+
     """
     od.download(dataset_URL, data_dir="data/", unzip=True)
 

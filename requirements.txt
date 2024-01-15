@@ -10,3 +10,4 @@ opendatasets
 wandb
 dvc
 dvc[gdrive]
+ruff

@@ -19,52 +19,51 @@ class CNN(LightningModule):
     the batch size can be specified
 
     Args:
+        kernel_size (int): Kernel size for the convolutional layers
+        channels (int): Number of channels for the first convolutional layer
+        batch_size (int): Batch size for the data loader
+        lr (float): Learning rate for the optimizer
+        img_dim (tuple): Image dimensions for the image transformer
 
     """
 
-    def __init__(self,
-                 kernel_size=3,
-                 channels=3,
-                 batch_size=2,
-                 lr=1e-4,
-                 img_dim=(256, 256)) -> None:
+    def __init__(
+        self,
+        kernel_size: int = 3,
+        channels: int = 3,
+        batch_size: int = 2,
+        lr: float = 1e-4,
+        img_dim: (int, int) = (256, 256),
+    ) -> None:
         super().__init__()
         self.conv = Sequential(
             Conv2d(in_channels=channels, out_channels=32, kernel_size=kernel_size),
             ReLU(),
             MaxPool2d(kernel_size=2),
             BatchNorm2d(32),
-
             Conv2d(in_channels=32, out_channels=64, kernel_size=kernel_size),
             ReLU(),
             MaxPool2d(kernel_size=2),
             BatchNorm2d(64),
-
             Conv2d(in_channels=64, out_channels=64, kernel_size=kernel_size),
             ReLU(),
             MaxPool2d(kernel_size=2),
             BatchNorm2d(64),
-
             Conv2d(in_channels=64, out_channels=64, kernel_size=kernel_size),
             ReLU(),
             MaxPool2d(kernel_size=2),
             BatchNorm2d(64),
-
             Conv2d(in_channels=64, out_channels=64, kernel_size=kernel_size),
             ReLU(),
             MaxPool2d(kernel_size=2),
             BatchNorm2d(64),
-
             Conv2d(in_channels=64, out_channels=64, kernel_size=kernel_size),
             ReLU(),
             MaxPool2d(kernel_size=2),
-            BatchNorm2d(64)
+            BatchNorm2d(64),
         )
         self.classifier = nn.Sequential(
-            nn.Flatten(),
-            nn.Linear(256, 128),
-            nn.Dropout(),
-            nn.Linear(128, 21)
+            nn.Flatten(), nn.Linear(256, 128), nn.Dropout(), nn.Linear(128, 21)
         )
         self.loss_function = nn.CrossEntropyLoss()
         self.optimiser = optim.Adam(self.parameters(), lr=lr)
@@ -74,47 +73,123 @@ class CNN(LightningModule):
         self.channels = channels
         self.lr = lr
 
-    def forward(self, x):
+    def forward(self, x) -> torch.Tensor:
         # make sure input tensor is flattened
         return self.classifier(self.conv(x))
 
     def training_step(self, batch, batch_idx):
+        """
+        Performs a training step
+
+                Parameters:
+                        batch (<Type>): The batch of data and labels
+                        batch_idx (int): Index of the current batch in the batchloader.
+
+                Returns:
+                       loss (float): The avagerage loss for that training step
+        """
         data, target = batch
         preds = self(data)
         loss = self.loss_function(preds, target.squeeze())
         acc = (target.squeeze() == preds.argmax(dim=-1)).float().mean()
-        self.log('train_loss', loss)
-        self.log('train_acc', acc)
-        self.logger.experiment.log({'logits': wandb.Histogram(preds.cpu().detach())})
+        self.log("train_loss", loss)
+        self.log("train_acc", acc)
+        self.logger.experiment.log({"logits": wandb.Histogram(preds.cpu().detach())})
         return loss
 
     def validation_step(self, batch, batch_idx):
+        """
+        Performs a Validation step
+
+                Parameters:
+                        batch (<Type>): The batch of data and labels
+                        batch_idx (int): Index of the current batch in the batchloader.
+
+                Returns:
+                       loss (float): The avagerage loss for that validation step
+        """
         data, target = batch
         preds = self(data)
         loss = self.loss_function(preds, target.squeeze())
         acc = (target.squeeze() == preds.argmax(dim=-1)).float().mean()
-        self.log('val_loss', loss)
-        self.log('val_acc', acc)
+        self.log("val_loss", loss)
+        self.log("val_acc", acc)
         return loss
 
     def image_transform(self):
-        return transforms.Compose([
-            transforms.Resize(self.img_dim),
-            transforms.ToTensor(),
-        ])
+        """
+        Helper transformer to ensure image dimensionality to the specified requirements during intialization.
+        Converts the images to tensor objects.
+
+        Returns:
+            transforms.Compose: Composed transformer object
+        """
+
+        return transforms.Compose(
+            [
+                transforms.Resize(self.img_dim),
+                transforms.ToTensor(),
+            ]
+        )
 
     def train_dataloader(self):
-        path = os.path.join(os.getcwd(), 'data', 'landuse-scene-classification', 'images_train_test_val', 'train')
+        """
+        Loads the training data from the specified path and applies the image transformer.
+        Sets the dataloader's num_workers according to the number of available CPU
+        cores.
+
+        Returns:
+            DataLoader: The training data loader
+        """
+        path = os.path.join(
+            os.getcwd(),
+            "data",
+            "landuse-scene-classification",
+            "images_train_test_val",
+            "train",
+        )
         dataset = datasets.ImageFolder(path, transform=self.image_transform())
-        return DataLoader(dataset, batch_size=self.batch_size, shuffle=True, )
+        return DataLoader(
+            dataset,
+            batch_size=self.batch_size,
+            shuffle=True,
+        )
 
     def test_dataloader(self):
-        path = os.path.join(os.getcwd(), 'data', 'landuse-scene-classification', 'images_train_test_val', 'test')
+        """
+        Loads the testing data from the specified path and applies the image transformer.
+        Sets the dataloader's num_workers according to the number of available CPU
+        cores.
+
+        Returns:
+            DataLoader: The test data loader
+        """
+        path = os.path.join(
+            os.getcwd(),
+            "data",
+            "landuse-scene-classification",
+            "images_train_test_val",
+            "test",
+        )
         dataset = datasets.ImageFolder(path, transform=self.image_transform())
         return DataLoader(dataset, batch_size=self.batch_size, shuffle=True)
 
     def val_dataloader(self):
-        path = os.path.join(os.getcwd(), 'data', 'landuse-scene-classification', 'images_train_test_val', 'validation')
+        """
+        Loads the valdation data from the specified path and applies the image transformer.
+        Sets the dataloader's num_workers according to the number of available CPU
+        cores.
+
+        Returns:
+            DataLoader: The validation data loader
+        """
+        path = os.path.join(
+            os.getcwd(),
+            "data",
+            "landuse-scene-classification",
+            "images_train_test_val",
+            "validation",
+        )
         dataset = datasets.ImageFolder(path, transform=self.image_transform())
         return DataLoader(dataset, batch_size=self.batch_size, shuffle=True)
 
@@ -122,11 +197,11 @@ class CNN(LightningModule):
         return self.optimiser
 
 
-if __name__ == '__main__':
+if __name__ == "__main__":
     from pytorch_lightning import Trainer, loggers
 
     trainer = Trainer(
-        accelerator='cpu',
+        accelerator="cpu",
         precision="32-true",
         profiler="simple",
         max_epochs=10,
@@ -134,6 +209,8 @@ if __name__ == '__main__':
         callbacks=[EarlyStopping(monitor="val_loss", mode="min")],
     )
     model = CNN()
-    trainer.fit(model,
-                train_dataloaders=model.train_dataloader(),
-                val_dataloaders=model.val_dataloader())
+    trainer.fit(
+        model,
+        train_dataloaders=model.train_dataloader(),
+        val_dataloaders=model.val_dataloader(),
+    )
