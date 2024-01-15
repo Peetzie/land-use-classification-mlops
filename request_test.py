@@ -3,8 +3,8 @@ import cv2
 from project import CNN
 import torch
 
-image_path = 'data/landuse-scene-classification/images/agricultural/agricultural_000001.png'
-out_path = 'data/api_images/'
+image_path = 'Data/landuse-scene-classification/images/agricultural/agricultural_000001.png'
+out_path = 'Data/api_images/'
 img = cv2.imread(out_path + "image.png")
 
 class_dict = {
