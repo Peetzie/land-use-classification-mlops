@@ -125,6 +125,6 @@ async def cv_model(data: UploadFile, out_path: Optional[str] = '', h: Optional[i
         "output": FileResponse(out_path + "image_resize.png"),
         "message": HTTPStatus.OK.phrase,
         "status-code": HTTPStatus.OK,
-        "pred": pred
+        # "pred": pred
     }
     return response
