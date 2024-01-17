@@ -5,7 +5,7 @@ GCLOUD_PROJECT="mlops-411314"
 REPO="land-use-1"   # Name of artifact registry repo
 REGION="europe-west4"
 IMAGE="land-use-1"  # Name of choice
-PATH_TO_DOCKERFILE="/c/Users/toell/OneDrive/Documents/GitHub/land-use-classification-mlops/dockerfiles/train_model.dockerfile"
+PATH_TO_DOCKERFILE="C:/Users/toell/OneDrive/Documents/GitHub/land-use-classification-mlops/dockerfiles/train_model.dockerfile"
 
 gcloud auth login
 gcloud auth configure-docker "${REGION}-docker.pkg.dev"
@@ -18,5 +18,5 @@ echo "REGION=${REGION}"
 echo "IMAGE=${IMAGE}"
 echo "IMAGE_TAG=${IMAGE_TAG}"
 
-docker build -t "${IMAGE_TAG}" -f PATH_TO_DOCKERFILE --platform linux/x86_64 .
+docker build -t "${IMAGE_TAG}" -f "${PATH_TO_DOCKERFILE}" --platform linux/x86_64 .
 docker push "${IMAGE_TAG}"
