@@ -3,6 +3,10 @@ from pytorch_lightning import Callback, Trainer, loggers
 from pytorch_lightning.callbacks.early_stopping import EarlyStopping
 
 from project import CNN
+from project.logger.logger import LoggerConfigurator
+
+logger_configurator = LoggerConfigurator("Tests")
+logger = logger_configurator.get_logger()
 
 
 class MetricTracker(Callback):
@@ -32,4 +36,7 @@ def test_in_out():
     test_batch = torch.rand([model.batch_size, model.channels, model.img_dim, model.img_dim])
 
     pred = model(test_batch)
-    assert pred.shape == torch.Size((model.batch_size, 21))
+    assert pred.shape == torch.Size((model.batch_size, 21)), logger.error(
+        "Unexpected output shape. Expected: {}, got: {}".format(torch.Size((model.batch_size, 21)), pred.shape)
+    )
+    logger.info("All tests passed for the model")
