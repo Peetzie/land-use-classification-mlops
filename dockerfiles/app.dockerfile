@@ -1,3 +1,4 @@
+# syntax = docker/dockerfile:experimental
 FROM python:3.9-slim
 
 EXPOSE $PORT
@@ -8,12 +9,16 @@ RUN apt-get update && apt-get install -y \
     build-essential \
     software-properties-common \
     git \
-    && rm -rf /var/lib/apt/lists/*
+    gcc \
+    && rm -rf /var/lib/apt/lists/* \
+    && apt clean
 
 COPY project/ project/
 COPY app/main.py main.py
 COPY requirements.txt requirements.txt
 
-RUN --mount=type=cache,target=~/pip/.cache pip install -r requirements.txt --no-cache-dir
+
+RUN --mount=type=cache,target=/root/.cache \
+    pip install -r requirements.txt
 
 CMD exec uvicorn main:app --port $PORT --host 0.0.0.0 --workers 1
