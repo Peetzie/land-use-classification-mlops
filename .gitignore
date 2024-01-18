@@ -176,10 +176,13 @@ cython_debug/
 #  option (not recommended) you can uncomment the following to ignore the entire idea folder.
 .idea/
 Data/
-project/data/kaggle.json
+kaggle.json
 kaggle.json
 wandb
 project/outputs
 outputs
 mlops-411314-f2e309fd78de.json
+docs_venv/
+/Data
 artifacts
+

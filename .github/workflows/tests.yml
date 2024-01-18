@@ -2,9 +2,9 @@ name: "Run tests"
 
 on:
   push:
-    branches: [master, main]
+    branches: [master, main, peetz-safe]
   pull_request:
-    branches: [master, main]
+    branches: [master, main, peetz-safe]
 
 jobs:
   build:
@@ -27,11 +27,13 @@ jobs:
     - name: Install dependencies
       run: |
         python -m pip install --upgrade pip
+        pip install --upgrade pyopenssl
         pip install -r requirements.txt
 
     # Get data using DVC
+    - uses: iterative/setup-dvc@v1
     - name: Get data
-      run: dvc pull
+      run: dvc pull -v
       env:
         GDRIVE_CREDENTIALS_DATA: ${{ secrets.GDRIVE_CREDENTIALS_DATA }}
 
