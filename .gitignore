@@ -176,7 +176,7 @@ cython_debug/
 #  option (not recommended) you can uncomment the following to ignore the entire idea folder.
 .idea/
 Data/
-project/data/kaggle.json
+kaggle.json
 kaggle.json
 wandb
 project/outputs
