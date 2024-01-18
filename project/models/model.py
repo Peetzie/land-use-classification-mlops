@@ -1,6 +1,6 @@
-import os
 
 import hydra
+import os
 import torch
 import torchvision.transforms as transforms
 from pytorch_lightning import LightningModule
@@ -209,7 +209,7 @@ if __name__ == "__main__":
         accelerator="cpu",
         precision="32-true",
         profiler="simple",
-        max_epochs=10,
+        max_epochs=100,
         logger=loggers.WandbLogger(project="land-use-classification", log_model='all'),
         callbacks=[EarlyStopping(monitor="val_loss", mode="min")],
     )
