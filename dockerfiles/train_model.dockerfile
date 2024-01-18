@@ -1,5 +1,8 @@
 # Base image
-FROM python:3.11-slim
+# syntax = docker/dockerfile:experimental
+FROM python:3.9-slim
+
+WORKDIR /
 
 RUN apt update && \
     apt install --no-install-recommends -y build-essential gcc && \
@@ -11,7 +14,7 @@ COPY project/ project/
 
 COPY Data/ Data/
 
-WORKDIR /
-RUN --mount=type=cache,target=~/pip/.cache pip install -r requirements.txt --no-cache-dir
+RUN --mount=type=cache,target=/root/.cache \
+    pip install -r requirements.txt
 
 ENTRYPOINT ["python", "-u", "project/train_model.py"]

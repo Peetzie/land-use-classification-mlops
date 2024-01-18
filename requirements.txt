@@ -16,3 +16,5 @@ pydantic
 opencv-python
 uvicorn[standard]
 pytest
+fastapi
+uvicorn

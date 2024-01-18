@@ -10,7 +10,6 @@ config = OmegaConf.load("project/configs/basic.yaml")
 
 def main():
     # Print current config for user
-    print(config)
     # Load and setup model with the config from file.
     model = CNN(
         kernel_size=config.basic.kernel_size,

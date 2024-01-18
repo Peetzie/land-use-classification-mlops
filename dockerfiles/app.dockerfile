@@ -14,9 +14,6 @@ COPY project/ project/
 COPY app/main.py main.py
 COPY requirements.txt requirements.txt
 
-RUN pip install fastapi
-RUN pip install pydantic
-RUN pip install uvicorn
 RUN --mount=type=cache,target=~/pip/.cache pip install -r requirements.txt --no-cache-dir
 
 CMD exec uvicorn main:app --port $PORT --host 0.0.0.0 --workers 1
