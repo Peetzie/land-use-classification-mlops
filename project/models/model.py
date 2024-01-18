@@ -1,16 +1,16 @@
 import os
-import torch
-import wandb
-from torch import nn
-from torch import optim
-from torchvision import datasets
-import torchvision.transforms as transforms
-from torch.nn import Sequential, Conv2d, ReLU, MaxPool2d, BatchNorm2d
-from torch.utils.data import DataLoader
-from pytorch_lightning import LightningModule
-from pytorch_lightning.callbacks.early_stopping import EarlyStopping
 
 import hydra
+import torch
+import torchvision.transforms as transforms
+from pytorch_lightning import LightningModule
+from pytorch_lightning.callbacks.early_stopping import EarlyStopping
+from torch import nn, optim
+from torch.nn import BatchNorm2d, Conv2d, MaxPool2d, ReLU, Sequential
+from torch.utils.data import DataLoader
+from torchvision import datasets
+
+import wandb
 
 
 class CNN(LightningModule):

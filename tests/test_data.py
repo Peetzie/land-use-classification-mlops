@@ -1,8 +1,9 @@
 import os
-import torch
 
-from torchvision import datasets
+import torch
 from torch.utils.data import DataLoader
+from torchvision import datasets
+
 from project import CNN
 
 print("Hi")
@@ -21,8 +22,6 @@ def test_data():
         assert len(dataset.classes) == 21
         assert len(dataset) == length
         assert len(target) == model.batch_size
-        assert images.shape == torch.Size(
-            [model.batch_size, model.channels, model.img_dim, model.img_dim]
-        )
+        assert images.shape == torch.Size([model.batch_size, model.channels, model.img_dim, model.img_dim])
         assert (torch.sum(images < 0) == 0).item()
         assert (torch.sum((length < target) & (target < 0)) == 0).item()

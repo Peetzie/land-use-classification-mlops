@@ -1,7 +1,8 @@
 import torch
-from project import CNN
-from pytorch_lightning import Trainer, loggers, Callback
+from pytorch_lightning import Callback, Trainer, loggers
 from pytorch_lightning.callbacks.early_stopping import EarlyStopping
+
+from project import CNN
 
 
 class MetricTracker(Callback):
@@ -32,4 +33,3 @@ def test_in_out():
 
     pred = model(test_batch)
     assert pred.shape == torch.Size((model.batch_size, 21))
-

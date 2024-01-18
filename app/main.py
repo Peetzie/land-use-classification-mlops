@@ -1,13 +1,14 @@
 import re
-import torch
 from enum import Enum
 from http import HTTPStatus
 from typing import Optional
 
 import cv2
+import torch
 from fastapi import FastAPI, File, UploadFile
 from fastapi.responses import FileResponse
 from pydantic import BaseModel
+
 from project import CNN
 
 app = FastAPI()
@@ -105,9 +106,11 @@ def contains_email_domain(data: Item):
 
 
 @app.post("/cv_model/")
-async def cv_model(data: UploadFile, out_path: Optional[str] = '', n: Optional[int] = 5, h: Optional[int] = 256, w: Optional[int] = 256):
+async def cv_model(
+    data: UploadFile, out_path: Optional[str] = "", n: Optional[int] = 5, h: Optional[int] = 256, w: Optional[int] = 256
+):
     """Simple function using open-cv to resize an image."""
-    with open(out_path + 'image.png', "wb") as image:
+    with open(out_path + "image.png", "wb") as image:
         content = await data.read()
         image.write(content)
         image.close()
@@ -142,7 +145,7 @@ async def cv_model(data: UploadFile, out_path: Optional[str] = '', n: Optional[i
         17: "sparseresidential",
         18: "storagetanks",
         19: "tenniscourt",
-        20: "harbor"
+        20: "harbor",
     }
 
     response = {

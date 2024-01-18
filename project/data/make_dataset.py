@@ -1,5 +1,6 @@
-import opendatasets as od
 import os
+
+import opendatasets as od
 
 dataset_URL = "https://www.kaggle.com/datasets/apollo2506/landuse-scene-classification"
 data_folder = "landuse-scene-classification"

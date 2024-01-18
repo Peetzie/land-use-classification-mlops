@@ -1,8 +1,7 @@
-from pytorch_lightning import Trainer, loggers
-from omegaconf import OmegaConf
-
 # Import necessary modules
 from models.model import CNN
+from omegaconf import OmegaConf
+from pytorch_lightning import Trainer, loggers
 from pytorch_lightning.callbacks.early_stopping import EarlyStopping
 
 # loading config
@@ -38,5 +37,6 @@ def main():
 
 if __name__ == "__main__":
     import wandb
-    wandb.login(key='7d4f6c7fcf5702feb08b64a3f24e850a3f66a5b5')
+
+    wandb.login(key="7d4f6c7fcf5702feb08b64a3f24e850a3f66a5b5")
     main()
