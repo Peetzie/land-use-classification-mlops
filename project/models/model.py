@@ -198,6 +198,9 @@ class CNN(LightningModule):
     def configure_optimizers(self):
         return self.optimiser
 
+    def load(self, filepath):
+        self.load_state_dict(torch.load(filepath))
+
 
 if __name__ == "__main__":
     from pytorch_lightning import Trainer, loggers
@@ -207,7 +210,7 @@ if __name__ == "__main__":
         precision="32-true",
         profiler="simple",
         max_epochs=10,
-        logger=loggers.WandbLogger(project="land-use-classification"),
+        logger=loggers.WandbLogger(project="land-use-classification", log_model='all'),
         callbacks=[EarlyStopping(monitor="val_loss", mode="min")],
     )
     model = CNN()

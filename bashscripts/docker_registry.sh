@@ -20,6 +20,3 @@ echo "IMAGE_TAG=${IMAGE_TAG}"
 
 docker build -t "${IMAGE_TAG}" -f "${PATH_TO_DOCKERFILE}" --platform linux/x86_64 .
 docker push "${IMAGE_TAG}"
-
-# For
-# gcloud run deploy $APP --image $TAG --platform managed --region $REGION --allow-unauthenticated
