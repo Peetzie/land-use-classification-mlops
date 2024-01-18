@@ -4,7 +4,7 @@
 GCLOUD_PROJECT="mlops-411314"
 REPO="app-1"   # Name of artifact registry repo
 REGION="europe-west4"
-APPNAME="app-3"  # Name of choice
+APPNAME="app-4"  # Name of choice
 PATH_TO_DOCKERFILE="C:/Users/toell/OneDrive/Documents/GitHub/land-use-classification-mlops/dockerfiles/app.dockerfile"
 IMAGE_TAG="${REGION}-docker.pkg.dev/${GCLOUD_PROJECT}/${REPO}/${APPNAME}"
 

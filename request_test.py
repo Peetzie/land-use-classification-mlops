@@ -6,7 +6,7 @@ from project import CNN
 
 image_path = "Data/landuse-scene-classification/images/agricultural/agricultural_000001.png"
 out_path = "Data/api_images/"
-img = cv2.imread(out_path + "image.png")
+# img = cv2.imread(out_path + "image.png")
 
 # class_dict = {
 #     0: "agricultural",
@@ -44,6 +44,7 @@ params = {"out_path": out_path, "n": 7}
 
 # Make the POST request
 response = requests.post("http://localhost:8000/cv_model/", files=files, params=params)
+# response = requests.post("https://app-3-odm3naduba-ez.a.run.app/cv_model/", files=files, params=params)
 
 # Print the response
 print("Response Code:", response.status_code)
@@ -51,3 +52,6 @@ print("Response Code:", response.status_code)
 if response.status_code == 200:
     for class_, prob in response.json()["probability_dictionary"].items():
         print(f"{class_}: {prob:.4f}")
+    pass
+else:
+    pass

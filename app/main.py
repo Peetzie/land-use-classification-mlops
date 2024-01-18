@@ -6,6 +6,7 @@ from typing import Optional
 from pathlib import Path
 
 import numpy as np
+from io import BytesIO
 from PIL import Image
 import torch
 import wandb
@@ -112,11 +113,7 @@ def contains_email_domain(data: Item):
 async def cv_model(
     data: UploadFile, out_path: Optional[str] = "", n: Optional[int] = 5
 ):
-    """Simple function using open-cv to resize an image."""
-    with open(out_path + "image.png", "wb") as image:
-        content = await data.read()
-        image.write(content)
-        image.close()
+    img = np.array(Image.open(BytesIO(await data.read())))
 
     wandb.login(key="7d4f6c7fcf5702feb08b64a3f24e850a3f66a5b5")
     run = wandb.init(project='land-use-classification')
@@ -124,8 +121,7 @@ async def cv_model(
     artifact_dir = artifact.download()
     model = CNN.load_from_checkpoint(Path(artifact_dir) / 'model.ckpt')
 
-    img = Image.open(out_path + "image.png")
-    img_tensor = torch.tensor(np.array(img), dtype=torch.float32).reshape(torch.Size([1, model.channels, model.img_dim, model.img_dim]))
+    img_tensor = torch.tensor(img, dtype=torch.float32).reshape(torch.Size([1, model.channels, model.img_dim, model.img_dim]))
     logits = model(img_tensor).squeeze()
     pred = torch.argsort(logits, descending=True).squeeze()[:n]
 
