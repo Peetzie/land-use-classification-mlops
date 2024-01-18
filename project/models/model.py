@@ -1,8 +1,8 @@
 import os
 
-import hydra
 import torch
 import torchvision.transforms as transforms
+from logger import LoggerConfigurator
 from pytorch_lightning import LightningModule
 from pytorch_lightning.callbacks.early_stopping import EarlyStopping
 from torch import nn, optim
@@ -11,6 +11,9 @@ from torch.utils.data import DataLoader
 from torchvision import datasets
 
 import wandb
+
+logger_configurator = LoggerConfigurator("Model output")
+logger = logger_configurator.get_logger()
 
 
 class CNN(LightningModule):
@@ -94,8 +97,7 @@ class CNN(LightningModule):
         preds = self(data)
         loss = self.loss_function(preds, target.squeeze())
         acc = (target.squeeze() == preds.argmax(dim=-1)).float().mean()
-        self.log("train_loss", loss)
-        self.log("train_acc", acc)
+        logger.info("Current training loss: {:.4f} and accuracy".format(loss, acc))
         self.logger.experiment.log({"logits": wandb.Histogram(preds.cpu().detach())})
         return loss
 
@@ -114,8 +116,7 @@ class CNN(LightningModule):
         preds = self(data)
         loss = self.loss_function(preds, target.squeeze())
         acc = (target.squeeze() == preds.argmax(dim=-1)).float().mean()
-        self.log("val_loss", loss)
-        self.log("val_acc", acc)
+        logger.info("Current training loss: {:.4f} and accuracy".format(loss, acc))
         return loss
 
     def image_transform(self):
@@ -210,7 +211,7 @@ if __name__ == "__main__":
         precision="32-true",
         profiler="simple",
         max_epochs=10,
-        logger=loggers.WandbLogger(project="land-use-classification", log_model='all'),
+        logger=loggers.WandbLogger(project="land-use-classification", log_model="all"),
         callbacks=[EarlyStopping(monitor="val_loss", mode="min")],
     )
     model = CNN()
