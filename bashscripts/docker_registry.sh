@@ -1,6 +1,6 @@
 #!/bin/bash
 
-
+# For pushing a dockerfile to the registry
 GCLOUD_PROJECT="mlops-411314"
 REPO="land-use-1"   # Name of artifact registry repo
 REGION="europe-west4"
@@ -20,3 +20,6 @@ echo "IMAGE_TAG=${IMAGE_TAG}"
 
 docker build -t "${IMAGE_TAG}" -f "${PATH_TO_DOCKERFILE}" --platform linux/x86_64 .
 docker push "${IMAGE_TAG}"
+
+# For
+# gcloud run deploy $APP --image $TAG --platform managed --region $REGION --allow-unauthenticated
