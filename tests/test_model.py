@@ -29,6 +29,7 @@ class MetricTracker(Callback):
 def test_in_out():
     model = CNN()
     test_batch = torch.rand([model.batch_size, model.channels, model.img_dim, model.img_dim])
+
     pred = model(test_batch)
     assert pred.shape == torch.Size((model.batch_size, 21))
 
