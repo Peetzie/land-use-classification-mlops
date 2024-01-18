@@ -6,10 +6,12 @@ from torch.utils.data import DataLoader
 from project import CNN
 
 print("Hi")
+
+
 def test_data():
     model = CNN()
     for name, length in zip(["train", "test", "validation"], [7350, 1050, 2100]):
-        path = os.path.join(os.getcwd(), f"Data/landuse-scene-classification/images_train_test_val/{name}")
+        path = os.path.join("Data", "landuse-scene-classification", "images_train_test_val", f"{name}")
         dataset = datasets.ImageFolder(path, transform=model.image_transform())
         data_loader = DataLoader(dataset, batch_size=model.batch_size, shuffle=True)
         (
