@@ -29,13 +29,6 @@ jobs:
         python -m pip install --upgrade pip
         pip install -r requirements.txt
 
-    # Download cached data artifact
-    - name: Download cached data
-      uses: actions/download-artifact@v2
-      with:
-        name: data
-        path: Data/
-
     # Get data using DVC
     - name: Get data
       run: dvc pull
