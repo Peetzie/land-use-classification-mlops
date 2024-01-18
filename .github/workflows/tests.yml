@@ -35,15 +35,14 @@ jobs:
       env:
         GDRIVE_CREDENTIALS_DATA: ${{ secrets.GDRIVE_CREDENTIALS_DATA }}
 
-    # Upload data as an artifact
-    - name: Cache data
-      uses: actions/upload-artifact@v2
+    # Download cached data artifact
+    - name: Download cached data
+      uses: actions/download-artifact@v2
       with:
         name: data
         path: Data/
 
     # Test with pytest
     - name: Test with pytest
-      run: |
-        pip install pytest
-        pytest -v
+      run:
+        pytest tests
