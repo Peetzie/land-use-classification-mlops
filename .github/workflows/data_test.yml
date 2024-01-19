@@ -1,10 +1,8 @@
 name: DVC pull data
 
 on:
-  push:
-    branches: [master, peetz-safe]
   pull_request:
-    branches: [master, peetz-safe]
+    branches: [master]
 
 jobs:
   build:
