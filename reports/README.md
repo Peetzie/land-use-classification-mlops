@@ -351,7 +351,20 @@ Despite the difficulties in synchronizing DVC with GitHub, its role in data vers
 >
 > Answer:
 
---- question 14 fill here ---
+As depicted in this [this figure (the one and only)](figures/wandb_1.png), our training process exhibited notable 
+stability, with each run closely resembling its predecessor. This consistency stemmed from our deliberate decision not 
+to alter parameters between runs, a choice influenced by the formidable challenges we encountered in deploying the model 
+on the GCP cloud. Despite attempting to leverage GPU resources for training, our efforts were limited by an error 
+message indicating insufficient capacity on Google's end. We are not 100% certain that this is the case, as the error
+message was only translated to us by a stack overflow thread.
+
+For future projects at DTU, we plan to opt for the HPC, where GPU availability is assured. Regrettably, due to project 
+constraints, we didn't have the time to pivot and conduct runs there this time. Consequently, our training speed was 
+reduced which in turn limited the accuracy we could achieve. If we were to continue this project, we would conduct a thorough hyperparameter 
+sweep encompassing not only learning rates, layer counts, and batch sizes but also exploring additional parameters such 
+as weight decay, dropout rates, activation functions, optimizer choices, and architectural configurations like kernel 
+sizes, strides, and filter counts. This comprehensive exploration ensures a more nuanced understanding of the model's 
+behavior and would help identify the optimal configurations for the best possible performance.
 
 ### Question 15
 
@@ -381,7 +394,12 @@ Despite the difficulties in synchronizing DVC with GitHub, its role in data vers
 >
 > Answer:
 
---- question 16 fill here ---
+Common to both members of our group was the use of a built-in debugger to perform debugging. This approach is more broadly
+encompassing than the method of using print statements in code. 
+On the profiling side we did include the profiling flag for the pytorch lightning trainer, however the output of this
+is on the gcloud and we have yet to identify where. It is probably not available until the model is done training and
+since the upper limit of epochs is never reached before the time limit we never see it. However, there is not much code
+in the first place and we use standard examples for training, so we suspect there to be little to optimise.
 
 ## Working in the cloud
 
