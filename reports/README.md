@@ -659,5 +659,6 @@ Finally, structural issues in the project, based on the cookiecutter format, led
 >
 > Answer:
 
-s214640 was in charge of setting up the initial structure and finding a dataset to use for the model,
+- s214640 was in charge of setting up the initial structure and finding a dataset to use for the model,
 training the model using gcloud and deployment of the fastAPI app to the gcloud.
+- s174159 was in charge of multiple parts of the project; including developing a dataset downloader using the external library, creating Docker files and incorporating configuration files to enable customised runs. Furthermore s174159 was in charge of setting up CI and unit testing. Tasks also involved enhancing the code base with type definitions and logging. Lastly s174159 took charge of adding and debugging workflows and producing the primary documentation for the project.
