@@ -330,7 +330,26 @@ Ideally with a working workflow for downloading the data, this would be reused f
 >
 > Answer:
 
---- question 12 fill here ---
+We used an argument parser combined with a yaml file structure in order to configure experiments.
+Based on the following example of the basic configuration we define parameters:
+````yaml
+#config.yaml
+basic:
+  kernel_size: 3
+  channels: 3
+  img_dim: 256
+hyperparameters:
+  batch_size: 64
+  learning_rate: 1e-4
+  epochs: 30
+````
+Training a model with the parameters is straight forward. If using the above example (Default behavior) no arguments are needed. Else simply create a new <configuration>.yaml, and place it within *project/configs*.
+Finally, run the line
+```bash
+python project/train_model.py [--config CONFIG_FILE]
+```
+We did not experiment alot with running, as our focus was implementing the features around the project, rather than developing a good model itself.
+
 
 ### Question 13
 
@@ -447,8 +466,8 @@ at data-centres around the world
 
 We used the compute engine in order to run our training images. We were unable to configure GPUs as there was an error
 message indicating a lack of capacity on the EU clusters, thus our training was pretty slow as we ended up using CPUs.
-Our custom container can be found in the dockerfiler folder, where we used the train_model.dockerfile. 
-In addition to this there is also a dockerfile to compile our app which can 
+Our custom container can be found in the dockerfiler folder, where we used the train_model.dockerfile.
+In addition to this there is also a dockerfile to compile our app which can
 
 ### Question 19
 
@@ -492,8 +511,8 @@ figures/build_1.png
 > Answer:
 
 We firstly deployed out model using FastAPI. We tested the model locally and established that it was working. We then
-took this application and wrapped into a docker image which was then pushed and deployed on the gcloud. There were 
-lots of problems and errors in the process, especially when container were running locally but not in the cloud. 
+took this application and wrapped into a docker image which was then pushed and deployed on the gcloud. There were
+lots of problems and errors in the process, especially when container were running locally but not in the cloud.
 To access the API a user would simply use the requests package in python as shown by our request_test.py script.
 Here one can specify the path to an image in the correct dimensions (open-cv was causing issues so the image is)
 not resized, and get the topN predictions from the model along with the probabilities.
@@ -512,12 +531,12 @@ not resized, and get the topN predictions from the model along with the probabil
 > Answer:
 
 
-Setting up monitoring for our deployed CNN model is super important for its long-term success. 
-Think of it like keeping an eye on how well our model is doing over time. We can track stuff 
-like accuracy and how fast it's making predictions. This way, if anything starts acting funky 
-or there are changes in performance, we can catch it early. It's like giving our model regular 
-check-ups, helping us make tweaks or improvements as needed. Monitoring would help ensure that 
-our CNN stays up to date with the latest available data. It may also be beneficial when it comes 
+Setting up monitoring for our deployed CNN model is super important for its long-term success.
+Think of it like keeping an eye on how well our model is doing over time. We can track stuff
+like accuracy and how fast it's making predictions. This way, if anything starts acting funky
+or there are changes in performance, we can catch it early. It's like giving our model regular
+check-ups, helping us make tweaks or improvements as needed. Monitoring would help ensure that
+our CNN stays up to date with the latest available data. It may also be beneficial when it comes
 to catching errors in the API.
 
 ### Question 24
@@ -584,6 +603,5 @@ Fabian has used 0 credits for the experiments run
 >
 > Answer:
 
-s214640 was in charge of setting up the initial structure and finding a dataset to use for the model, 
+s214640 was in charge of setting up the initial structure and finding a dataset to use for the model,
 training the model using gcloud and deployment of the fastAPI app to the gcloud.
-
