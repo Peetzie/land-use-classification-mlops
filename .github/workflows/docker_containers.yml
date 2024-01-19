@@ -1,8 +1,8 @@
 name: Docker Image - Application
 
 on:
-    push:
-        branches: [master, peetz-safe]
+  pull_request:
+    branches: [ master ] # Only perform action upon PR for main branch.
 
 jobs:
     build:
