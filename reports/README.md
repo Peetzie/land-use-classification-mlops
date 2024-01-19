@@ -399,7 +399,9 @@ Therfore the current iteration of the project only contains one configuration fi
 >
 > Answer:
 
-As depicted in this [this figure (the one and only)](figures/wandb_1.png), our training process exhibited notable
+As depicted in the following picture:
+![this figure (the one and only)](figures/wandb_1.png)
+Our training process exhibited notable
 stability, with each run closely resembling its predecessor. This consistency stemmed from our deliberate decision not
 to alter parameters between runs, a choice influenced by the formidable challenges we encountered in deploying the model
 on the GCP cloud. Despite attempting to leverage GPU resources for training, our efforts were limited by an error
@@ -504,7 +506,7 @@ In addition to this there is also a dockerfile to compile our app which can
 >
 > Answer:
 
-figures/bucket_1.png
+![image info](figures/bucket_1.png)
 
 ### Question 20
 
@@ -513,7 +515,8 @@ figures/bucket_1.png
 >
 > Answer:
 
-figures/registry_1.png
+![image info](figures/registry_1.png)
+
 
 ### Question 21
 
@@ -522,7 +525,7 @@ figures/registry_1.png
 >
 > Answer:
 
-figures/build_1.png
+![image info](figures/build_1.png)
 
 ### Question 22
 
