@@ -300,7 +300,18 @@ Despite the difficulties in synchronizing DVC with GitHub, its role in data vers
 >
 > Answer:
 
---- question 11 fill here ---
+Our CI is divided into two separate files: one for executing unit tests and another for Docker containers. The unit test workflow is configured to operate exclusively on the master branch when a pull request is initiated.
+
+The workflow begins by installing Ubuntu, followed by the setup of Python using version 3.10.11. We then upgrade the pip package manager and install all required packages from the requirements file. Although the YML configuration file includes a caching flag, GitHub hasn't cached any installation files as of now.
+
+Subsequently, we execute "dvc pull" with the added parameter "-v" to enhance debugging output in case of any issues during data download. Finally, using pytest, we run the unit tests as previously described in a prior question. Unfortunately, the workflow consistently fails due to an unknown DVC error, preventing the download of one file from the dataset. If successful, the system is designed to cache the data, ensuring faster future runtimes.
+
+The second workflow focuses on Docker testing, specifically verifying the successful building of the application Docker image. If the build is successful, the workflow is considered valid.
+
+We have provided a link to the [GitHub Actions page](https://github.com/Peetzie/land-use-classification-mlops/actions).
+
+Ideally with a working workflow for downloading the data, this would be reused for checking the completion of building the remaning containers i.e predict and training containers.
+
 
 ## Running code and tracking experiments
 
@@ -351,19 +362,19 @@ Despite the difficulties in synchronizing DVC with GitHub, its role in data vers
 >
 > Answer:
 
-As depicted in this [this figure (the one and only)](figures/wandb_1.png), our training process exhibited notable 
-stability, with each run closely resembling its predecessor. This consistency stemmed from our deliberate decision not 
-to alter parameters between runs, a choice influenced by the formidable challenges we encountered in deploying the model 
-on the GCP cloud. Despite attempting to leverage GPU resources for training, our efforts were limited by an error 
+As depicted in this [this figure (the one and only)](figures/wandb_1.png), our training process exhibited notable
+stability, with each run closely resembling its predecessor. This consistency stemmed from our deliberate decision not
+to alter parameters between runs, a choice influenced by the formidable challenges we encountered in deploying the model
+on the GCP cloud. Despite attempting to leverage GPU resources for training, our efforts were limited by an error
 message indicating insufficient capacity on Google's end. We are not 100% certain that this is the case, as the error
 message was only translated to us by a stack overflow thread.
 
-For future projects at DTU, we plan to opt for the HPC, where GPU availability is assured. Regrettably, due to project 
-constraints, we didn't have the time to pivot and conduct runs there this time. Consequently, our training speed was 
-reduced which in turn limited the accuracy we could achieve. If we were to continue this project, we would conduct a thorough hyperparameter 
-sweep encompassing not only learning rates, layer counts, and batch sizes but also exploring additional parameters such 
-as weight decay, dropout rates, activation functions, optimizer choices, and architectural configurations like kernel 
-sizes, strides, and filter counts. This comprehensive exploration ensures a more nuanced understanding of the model's 
+For future projects at DTU, we plan to opt for the HPC, where GPU availability is assured. Regrettably, due to project
+constraints, we didn't have the time to pivot and conduct runs there this time. Consequently, our training speed was
+reduced which in turn limited the accuracy we could achieve. If we were to continue this project, we would conduct a thorough hyperparameter
+sweep encompassing not only learning rates, layer counts, and batch sizes but also exploring additional parameters such
+as weight decay, dropout rates, activation functions, optimizer choices, and architectural configurations like kernel
+sizes, strides, and filter counts. This comprehensive exploration ensures a more nuanced understanding of the model's
 behavior and would help identify the optimal configurations for the best possible performance.
 
 ### Question 15
@@ -395,7 +406,7 @@ behavior and would help identify the optimal configurations for the best possibl
 > Answer:
 
 Common to both members of our group was the use of a built-in debugger to perform debugging. This approach is more broadly
-encompassing than the method of using print statements in code. 
+encompassing than the method of using print statements in code.
 On the profiling side we did include the profiling flag for the pytorch lightning trainer, however the output of this
 is on the gcloud and we have yet to identify where. It is probably not available until the model is done training and
 since the upper limit of epochs is never reached before the time limit we never see it. However, there is not much code
