@@ -3,6 +3,15 @@ basic:
   kernel_size: 3
   channels: 3
   img_dim: 256
+  cunit: "cpu"
+  precision: "32-true"
+  profiler: "simple"
+logging:
+  name: "land-use-classification"
+  model: "all"
+callbacks:
+  monitor: "val_loss"
+  mode: "min"
 hyperparameters:
   batch_size: 64
   learning_rate: 1e-4

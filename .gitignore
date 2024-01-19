@@ -177,7 +177,7 @@ cython_debug/
 .idea/
 Data/
 kaggle.json
-kaggle.json
+
 wandb
 project/outputs
 outputs
@@ -186,4 +186,3 @@ docs_venv/
 /Data
 artifacts
 land-use-classification
-

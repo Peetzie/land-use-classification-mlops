@@ -28,6 +28,8 @@ class CNN(LightningModule):
         lr (float): Learning rate for the optimizer
         img_dim (tuple): Image dimensions for the image transformer
 
+    Return: CNN -> LightningModule
+
     """
 
     def __init__(
@@ -210,7 +212,7 @@ if __name__ == "__main__":
         precision="32-true",
         profiler="simple",
         max_epochs=100,
-        logger=loggers.WandbLogger(project="land-use-classification", log_model='all'),
+        logger=loggers.WandbLogger(project="land-use-classification", log_model="all"),
         callbacks=[EarlyStopping(monitor="val_loss", mode="min")],
     )
     model = CNN()

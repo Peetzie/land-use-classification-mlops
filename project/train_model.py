@@ -1,16 +1,15 @@
 # Import necessary modules
+import argparse
+
 from models.model import CNN
 from omegaconf import OmegaConf
 from pytorch_lightning import Trainer, loggers
 from pytorch_lightning.callbacks.early_stopping import EarlyStopping
 
-# loading config
-config = OmegaConf.load("project/configs/basic.yaml")
 
-
-def main():
-    # Print current config for user
+def main(config_path):
     # Load and setup model with the config from file.
+    config = OmegaConf.load(config_path)
     model = CNN(
         kernel_size=config.basic.kernel_size,
         channels=config.basic.channels,
@@ -20,12 +19,12 @@ def main():
     )
 
     trainer = Trainer(
-        accelerator="cpu",
-        precision="32-true",
-        profiler="simple",
+        accelerator=config.basic.cunit,
+        precision=config.basic.precision,
+        profiler=config.basic.profiler,
         max_epochs=config.hyperparameters.epochs,
-        logger=loggers.WandbLogger(project="land-use-classification", log_model="all"),
-        callbacks=[EarlyStopping(monitor="val_loss", mode="min")],
+        logger=loggers.WandbLogger(project=config.logging.name, log_model=config.logging.model),
+        callbacks=[EarlyStopping(monitor=config.callbacks.monitor, mode=config.callbacks.mode)],
     )
     trainer.fit(
         model,
@@ -37,5 +36,13 @@ def main():
 if __name__ == "__main__":
     import wandb
 
+    # Add command line argument for the config file path
+    parser = argparse.ArgumentParser(description="Train the model.")
+    parser.add_argument(
+        "--config", type=str, default="project/configs/basic.yaml", help="Path to the configuration file."
+    )
+
+    args = parser.parse_args()
+
     wandb.login(key="7d4f6c7fcf5702feb08b64a3f24e850a3f66a5b5")
-    main()
+    main(args.config)
