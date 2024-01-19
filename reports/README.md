@@ -364,7 +364,15 @@ We did not experiment alot with running, as our focus was implementing the featu
 >
 > Answer:
 
---- question 13 fill here ---
+Experimental configuration files are stored in the "project/configs" directory, for ease of access to previous configurations. Any previous experiment can be run by specifying the configuration file.
+If no other file is specified (0 arguments) - the default *basic* configuration is used.
+```bash
+python project/train_model.py [--config CONFIG_FILE]
+```
+Additionally, all training-related information, including model parameters and logged performance metrics, has been preserved using the
+third-party tool Weights & Biases. We chose to focus on prioritising the incorporation of course-relevant MLOPS features, rather than building and optimising the model performance.
+Therfore the current iteration of the project only contains one configuration file, which is the baseline config for training the network.
+
 
 ### Question 14
 
@@ -409,8 +417,18 @@ behavior and would help identify the optimal configurations for the best possibl
 >
 > Answer:
 
---- question 15 fill here ---
-
+Docker and Podman (Open source alternative) is one way to build containers for applications. Containers are essential to ensure cross-platform compatability between development machines but also production enviroments.
+They eseentially works by packaging the application and required files only with the underlying minimalistic operating system to be functional. Making them a smaller more effecient approach to traditional virtualmachines.
+We used docker in the training of the model where the container would take arguments to configuration files in order to perform experiments. Furthermore the container allowed for usage without specifying a configuration file, but utilized a base config if none provided.
+The syntax for running the docker container (train_model) in order to train the model based on a configuration file is
+```bash
+docker run -it trainer_modelled --config /path/to/your/config.yaml
+```
+However, for the  base config simply run the following command:
+```bash
+docker run -it trainer_modelled
+```
+We have here provided a link to an example docker file [train_model.dockerfile](https://github.com/Peetzie/land-use-classification-mlops/blob/master/dockerfiles/train_model.dockerfile)
 ### Question 16
 
 > **When running into bugs while trying to run your experiments, how did you perform debugging? Additionally, did you**
