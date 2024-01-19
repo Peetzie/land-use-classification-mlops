@@ -2,12 +2,11 @@ import requests
 
 for i in range(1, 3):
     print(f'Image {i}:')
-    image_path = f"Data/landuse-scene-classification/images/parkinglot/parkinglot_00000{i}.png"
-    out_path = "Data/api_images/"
     n = 5
+    image_path = f"Data/landuse-scene-classification/images/parkinglot/parkinglot_00000{i}.png"
 
-    files = {"data": (out_path, open(image_path, "rb"), "image/png")}
-    params = {"out_path": out_path, "n": 2}
+    files = {"data": ("", open(image_path, "rb"), "")}
+    params = {"n": 2}
 
     # Make the POST request
     # response = requests.post("http://localhost:8000/cv_model/", files=files, params=params)

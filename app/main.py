@@ -111,7 +111,7 @@ def contains_email_domain(data: Item):
 
 @app.post("/cv_model/")
 async def cv_model(
-    data: UploadFile, out_path: Optional[str] = "", n: Optional[int] = 5
+    data: UploadFile, n: Optional[int] = 5
 ):
     img = np.array(Image.open(BytesIO(await data.read())))
 
@@ -151,7 +151,6 @@ async def cv_model(
 
     response = {
         "input": data,
-        "output": FileResponse(out_path + "image_resize.png"),
         "message": HTTPStatus.OK.phrase,
         "status-code": HTTPStatus.OK,
         "probability_dictionary": {class_dict[el.item()]: logits[el].item() for el in pred},

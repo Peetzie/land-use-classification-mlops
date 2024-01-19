@@ -1,4 +1,4 @@
-# Documentation
+~~# Documentation
 
 ## Getting Started
 
@@ -53,4 +53,19 @@ Finally, use the automated script for downloading the dataset:
 
 ```bash
 python project/data/make_dataset.py
+```
+
+### FastAPI~~
+
+The API has one function "cv_model" which takes a path to a local image opened in a byte format:
+```python
+files = {"data": ("", open(image_path, "rb"), "")}
+params = {"n": 2}
+
+response = requests.post("https://app-4-odm3naduba-ez.a.run.app/cv_model/", files=files, params=params)
+```
+This returns the top n predictions from the model in a dictionay as such:
+```python
+for class_, prob in response.json()["probability_dictionary"].items():
+    print(f"{class_}: {prob:.4f}")
 ```
