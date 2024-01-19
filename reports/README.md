@@ -129,7 +129,7 @@ s214640, 2174159
 
 Apart from implementing Pytorch-Lightning and coupling it to Weights and Biases, we did not make heavy use of a third party framework.
 We did, however, make use of for instance Pillow to load the image in out deployed app. This greatly helped as without it we
-would have to have implemented our own
+would have to implement our own image loader.
 
 ## Coding environment
 
@@ -232,7 +232,11 @@ Implementing these practices in larger projects maintains codebase quality, stre
 >
 > Answer:
 
---- question 8 fill here ---
+The total code coverage of code is 78%, which includes all our source code. This is not far from 100%, especially when
+taking into consideration that some of the code not run is duplicated, thus the actual percentage is higher.
+This does not mean we expect it to run bug free, as we are limited by our own ability to write unittests. The training
+of our model is not tested here as it takes too long to do an epoch to confirm that the model is learning something.
+In addition, this does not test the dockerfiles nor our FastAPI, as these are outside the scope of the coverage function.
 
 ### Question 9
 

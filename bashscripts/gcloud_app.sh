@@ -22,4 +22,5 @@ docker tag "${IMAGE_TAG}" gcr.io/"${GCLOUD_PROJECT}"/"${APPNAME}"
 gcloud auth configure-docker
 docker push gcr.io/"${GCLOUD_PROJECT}"/"${APPNAME}"
 
+# Does not work due to a much longer name being the real one:
 # gcloud run deploy "${APPNAME}" --image "${IMAGE_TAG}" --platform managed --region "${REGION}" --allow-unauthenticated
