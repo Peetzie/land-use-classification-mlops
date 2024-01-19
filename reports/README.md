@@ -500,7 +500,9 @@ at data-centres around the world
 We used the compute engine in order to run our training images. We were unable to configure GPUs as there was an error
 message indicating a lack of capacity on the EU clusters, thus our training was pretty slow as we ended up using CPUs.
 Our custom container can be found in the dockerfiler folder, where we used the train_model.dockerfile.
-In addition to this there is also a dockerfile to compile our app which can
+In addition to this there is also a dockerfile to compile our app which can then be used on the cloud to host the app.
+The app can then be queried from a python script (or somewhere else) in order to get the topN predictions from a model
+for a given image.
 
 ### Question 19
 
