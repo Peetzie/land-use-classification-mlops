@@ -376,7 +376,12 @@ behavior and would help identify the optimal configurations for the best possibl
 >
 > Answer:
 
---- question 16 fill here ---
+Common to both members of our group was the use of a built-in debugger to perform debugging. This approach is more broadly
+encompassing than the method of using print statements in code. 
+On the profiling side we did include the profiling flag for the pytorch lightning trainer, however the output of this
+is on the gcloud and we have yet to identify where. It is probably not available until the model is done training and
+since the upper limit of epochs is never reached before the time limit we never see it. However, there is not much code
+in the first place and we use standard examples for training, so we suspect there to be little to optimise.
 
 ## Working in the cloud
 
