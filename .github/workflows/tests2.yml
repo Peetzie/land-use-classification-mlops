@@ -25,6 +25,8 @@ jobs:
           pip install -r requirements.txt
       - name: Download data
         run: dvc pull -v
+        env:
+          GDRIVE_CREDENTIALS_DATA: ${{ secrets.GDRIVE_CREDENTIALS_DATA }}
     # Test with pytest
       - name: Test with pytest
         run:
