@@ -338,10 +338,20 @@ basic:
   kernel_size: 3
   channels: 3
   img_dim: 256
+  cunit: "cpu"
+  precision: "32-true"
+  profiler: "simple"
+logging:
+  name: "land-use-classification"
+  model: "all"
+callbacks:
+  monitor: "val_loss"
+  mode: "min"
 hyperparameters:
   batch_size: 64
   learning_rate: 1e-4
   epochs: 30
+
 ````
 Training a model with the parameters is straight forward. If using the above example (Default behavior) no arguments are needed. Else simply create a new <configuration>.yaml, and place it within *project/configs*.
 Finally, run the line
