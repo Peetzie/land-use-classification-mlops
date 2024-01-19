@@ -55,7 +55,7 @@ Finally, use the automated script for downloading the dataset:
 python project/data/make_dataset.py
 ```
 
-### FastAPI~~
+### FastAPI
 
 The API has one function "cv_model" which takes a path to a local image opened in a byte format:
 ```python
