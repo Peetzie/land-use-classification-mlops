@@ -14,11 +14,12 @@ RUN apt-get update && apt-get install -y \
     && apt clean
 
 COPY project/ project/
-COPY app/main.py main.py
+COPY app/ app/
+COPY logger/ logger/
 COPY requirements.txt requirements.txt
 
 
 RUN --mount=type=cache,target=/root/.cache \
     pip install -r requirements.txt
 
-CMD exec uvicorn main:app --port $PORT --host 0.0.0.0 --workers 1
+CMD exec uvicorn app:app --port $PORT --host 0.0.0.0 --workers 1

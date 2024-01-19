@@ -8,6 +8,11 @@ from rich.logging import RichHandler
 
 
 class LoggerConfigurator:
+    """
+    Class responsible for configuring logging to the level of _configure_logging. Logging is saved per default in folder name Logs,
+    and subfolder name based on Action performed.
+    """
+
     def __init__(self, folder_name):
         self.logs_dir = os.path.join("Logs", folder_name)
         # Convert the string path to a Path object
@@ -58,7 +63,7 @@ class LoggerConfigurator:
 
         logging.config.dictConfig(logging_config)
         logger = logging.getLogger()
-        logger.handlers[0] = RichHandler(markup=True)  # set rich handler
+        logger.handlers[0] = RichHandler(markup=True)  # set rich handler for colored terminal output.
 
     def get_logger(self):
         return logging.getLogger()

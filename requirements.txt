@@ -13,8 +13,10 @@ dvc[gdrive]
 ruff
 fastapi
 pydantic
-opencv-python
+pillow
 uvicorn[standard]
 pytest
 fastapi
 uvicorn
+wheel
+python-multipart

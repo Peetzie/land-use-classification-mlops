@@ -17,4 +17,8 @@ COPY Data/ Data/
 RUN --mount=type=cache,target=/root/.cache \
     pip install -r requirements.txt
 
-ENTRYPOINT ["python", "-u", "project/train_model.py"]
+ARG CONFIG_PATH
+ENV CONFIG_PATH=$CONFIG_PATH
+
+# Check if CONFIG_PATH is empty and set default entry point accordingly
+ENTRYPOINT [ "sh", "-c", "if [ -z \"$CONFIG_PATH\" ]; then exec python -u project/train_model.py; else exec python -u project/train_model.py --config \"$CONFIG_PATH\"; fi" ]

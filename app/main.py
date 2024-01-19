@@ -1,14 +1,18 @@
 import re
+import os
 from enum import Enum
 from http import HTTPStatus
 from typing import Optional
+from pathlib import Path
 
-import cv2
+import numpy as np
+from io import BytesIO
+from PIL import Image
 import torch
+import wandb
 from fastapi import FastAPI, File, UploadFile
 from fastapi.responses import FileResponse
 from pydantic import BaseModel
-
 from project import CNN
 
 app = FastAPI()
@@ -107,22 +111,19 @@ def contains_email_domain(data: Item):
 
 @app.post("/cv_model/")
 async def cv_model(
-    data: UploadFile, out_path: Optional[str] = "", n: Optional[int] = 5, h: Optional[int] = 256, w: Optional[int] = 256
+    data: UploadFile, out_path: Optional[str] = "", n: Optional[int] = 5
 ):
-    """Simple function using open-cv to resize an image."""
-    with open(out_path + "image.png", "wb") as image:
-        content = await data.read()
-        image.write(content)
-        image.close()
-    model = CNN()
+    img = np.array(Image.open(BytesIO(await data.read())))
 
-    img = cv2.imread(out_path + "image.png")
-    img_tensor = torch.tensor(img, dtype=torch.float32).reshape(torch.Size([1, model.channels, *model.img_dim]))
+    wandb.login(key="7d4f6c7fcf5702feb08b64a3f24e850a3f66a5b5")
+    run = wandb.init(project='land-use-classification')
+    artifact = run.use_artifact('fabcult/land-use-classification/model-nfoqlgbt:best', type='model')
+    artifact_dir = artifact.download()
+    model = CNN.load_from_checkpoint(Path(artifact_dir) / 'model.ckpt')
+
+    img_tensor = torch.tensor(img, dtype=torch.float32).reshape(torch.Size([1, model.channels, model.img_dim, model.img_dim]))
     logits = model(img_tensor).squeeze()
     pred = torch.argsort(logits, descending=True).squeeze()[:n]
-
-    res = cv2.resize(img, (h, w))
-    cv2.imwrite(out_path + "image_resize.png", res)
 
     class_dict = {
         0: "agricultural",
