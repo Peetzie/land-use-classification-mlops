@@ -8,7 +8,6 @@ from pytorch_lightning.callbacks.early_stopping import EarlyStopping
 
 
 def main(config_path):
-    # Print current config for user
     # Load and setup model with the config from file.
     config = OmegaConf.load(config_path)
     model = CNN(
@@ -20,12 +19,12 @@ def main(config_path):
     )
 
     trainer = Trainer(
-        accelerator="cpu",
-        precision="32-true",
-        profiler="simple",
+        accelerator=config.basic.cunit,
+        precision=config.basic.precision,
+        profiler=config.basic.profiler,
         max_epochs=config.hyperparameters.epochs,
-        logger=loggers.WandbLogger(project="land-use-classification", log_model="all"),
-        callbacks=[EarlyStopping(monitor="val_loss", mode="min")],
+        logger=loggers.WandbLogger(project=config.logging.name, log_model=config.logging.model),
+        callbacks=[EarlyStopping(monitor=config.callbacks.monitor, mode=config.callbacks.mode)],
     )
     trainer.fit(
         model,
