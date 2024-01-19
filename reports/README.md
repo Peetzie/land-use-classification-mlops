@@ -127,9 +127,14 @@ s214640, 2174159
 >
 > Answer:
 
-Apart from implementing Pytorch-Lightning and coupling it to Weights and Biases, we did not make heavy use of a third party framework.
-We did, however, make use of for instance Pillow to load the image in out deployed app. This greatly helped as without it we
-would have to implement our own image loader.
+We made use of a  third-party framework known as *open-datasets* (OD) to help with creating a Data downloader. Using the Kaggle API requires a bit of setup,
+however by using the OD framework instead we can simply pass the kaggle URL and make use of the kaggle authentication JSON in order to automatically download and extract the dataset.
+Other options was downloading the dataset in a raw format and extract the zip file ourselves.
+The full *how-to* is written in the documentation.
+We had very little use of external frameworks outside the subjects taught in the course, but made use of Pillow to load the images in the deployed application.
+This was a neat framework as we avoided writing our own image loader.
+
+
 
 ## Coding environment
 
