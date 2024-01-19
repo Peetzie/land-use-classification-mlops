@@ -398,7 +398,10 @@ in the first place and we use standard examples for training, so we suspect ther
 >
 > Answer:
 
---- question 17 fill here ---
+We used the Engine and had an implementation of the Bucket that we never used.
+The bucket is used for storing data to be used by the engine
+The engine is used to run virtual machines defined by docker images in order to execute jobs on resources available
+at data-centres around the world
 
 ### Question 18
 
