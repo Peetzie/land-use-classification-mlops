@@ -446,7 +446,7 @@ In addition to this there is also a dockerfile to compile our app which can
 >
 > Answer:
 
---- question 19 fill here ---
+figures/bucket_1.png
 
 ### Question 20
 
@@ -455,7 +455,7 @@ In addition to this there is also a dockerfile to compile our app which can
 >
 > Answer:
 
---- question 20 fill here ---
+figures/registry_1.png
 
 ### Question 21
 
@@ -464,7 +464,7 @@ In addition to this there is also a dockerfile to compile our app which can
 >
 > Answer:
 
---- question 21 fill here ---
+figures/build_1.png
 
 ### Question 22
 
