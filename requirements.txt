@@ -18,4 +18,5 @@ uvicorn[standard]
 pytest
 fastapi
 uvicorn
+wheel
 python-multipart

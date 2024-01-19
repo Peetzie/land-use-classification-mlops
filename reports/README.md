@@ -208,7 +208,11 @@ would have to implement our own image loader.
 >
 > Answer:
 
---- question 8 fill here ---
+The total code coverage of code is 78%, which includes all our source code. This is not far from 100%, especially when
+taking into consideration that some of the code not run is duplicated, thus the actual percentage is higher.
+This does not mean we expect it to run bug free, as we are limited by our own ability to write unittests. The training
+of our model is not tested here as it takes too long to do an epoch to confirm that the model is learning something. 
+In addition, this does not test the dockerfiles nor our FastAPI, as these are outside the scope of the coverage function.
 
 ### Question 9
 
