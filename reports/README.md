@@ -217,7 +217,13 @@ Implementing these practices in larger projects maintains codebase quality, stre
 >
 > Answer:
 
---- question 7 fill here ---
+We've developed tests, encapsulated in test_data.py, to verify data integrity.
+Specifically, we validate correct downloads of train, test, and validation splits by comparing their sizes.
+Additionally, we ensure the expected number of classes, consistent dimensionality post-image resizing,
+and adherence to RGB image color standards (no negative values).
+Assertions drive these tests, with error-level logging for failures. Detailed descriptions of input and expected values appear in the console log and Logs folder.
+For the model, testing focuses on handling anticipated input sizes and generating outputs with expected tensor shapes.
+
 
 ### Question 8
 
@@ -251,7 +257,13 @@ In addition, this does not test the dockerfiles nor our FastAPI, as these are ou
 >
 > Answer:
 
---- question 9 fill here ---
+As we were only two persons,  the utilization of branches has been restricted.
+Fabian used primarily the main branch, and I (Frederik), made use of branches for documentation, and implementing my features seperately.
+Then merged them with Fabians changes through pull requests.
+
+The intrinsic advantage of pull requests, especially in larger projects, lies in facilitating collaborative work without jeopardizing the stability of the main branch. This approach ensures that the main branch consistently maintains functionality and serves as the latest stable version, essentially meeting production-level standards. In an optimal scenario, a dedicated branch for each feature minimizes potential dependencies, safeguarding the stability of parallel features during implementation.
+
+Due to our simplified communication dynamics as a two-person team, we consciously opted not to enforce branch protection rules, which would have prevented pull requests to the main branch in case of failed GitHub Workflows. Our flexibility in this regard allowed us to swiftly address minor changes, aiding each team member's progress. While this approach suited our project's size and complexity, larger projects may necessitate adherence to more stringent guidelines for pull requests and branching to ensure efficient collaboration and codebase integrity.
 
 ### Question 10
 
@@ -266,7 +278,13 @@ In addition, this does not test the dockerfiles nor our FastAPI, as these are ou
 >
 > Answer:
 
---- question 10 fill here ---
+We incorporated Data Version Control (DVC) into our project to manage data, which was imperative since our source dataset had undergone substantial processing  DVC's utility becomes even more evident for datasets demanding extensive pre-processing, enabling version control through various modifications.
+
+Our primary application of DVC involved storing data within the Google Cloud system to share it between devices. However, we encountered challenges when attempting to integrate 'dvc pull' with GitHub Actions, consistently experiencing failures.
+This demanded a significant amount of time for debugging and ended up preventing us from utilizing  a seamless execution of GitHub Workflows for the project, particularly those reliant on data. Which where many of our Unit tests as specified previously.
+
+
+Despite the difficulties in synchronizing DVC with GitHub, its role in data versioning control remains crucial, especially for datasets undergoing iterative modifications.
 
 ### Question 11
 
