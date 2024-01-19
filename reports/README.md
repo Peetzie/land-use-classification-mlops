@@ -129,7 +129,7 @@ s214640, 2174159
 
 Apart from implementing Pytorch-Lightning and coupling it to Weights and Biases, we did not make heavy use of a third party framework.
 We did, however, make use of for instance Pillow to load the image in out deployed app. This greatly helped as without it we 
-would have to have implemented our own 
+would have to implement our own image loader. 
 
 ## Coding environment
 

@@ -117,7 +117,7 @@ async def cv_model(
 
     wandb.login(key="7d4f6c7fcf5702feb08b64a3f24e850a3f66a5b5")
     run = wandb.init(project='land-use-classification')
-    artifact = run.use_artifact('fabcult/land-use-classification/model-1xmu70qt:latest', type='model')
+    artifact = run.use_artifact('fabcult/land-use-classification/model-nfoqlgbt:best', type='model')
     artifact_dir = artifact.download()
     model = CNN.load_from_checkpoint(Path(artifact_dir) / 'model.ckpt')
 
