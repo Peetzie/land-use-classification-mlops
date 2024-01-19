@@ -178,8 +178,11 @@ If the user is running Anaconda or Miniconda, the following commands should be u
 > *experiments.*
 > Answer:
 
---- question 5 fill here ---
-
+From the cookie cutter template we have filled out the *Docs, project/data, project/models and tests* folders.
+We filled out those folders in order to make use of the functionality that is associated with them in order to set up the workflow described in [Question 25](#question-25).
+To further structure the project we have added the folder *Logs* that contains all logs associated with different parts of the project, we also added *project/logger* to create a module for customized logging that could be reused in multiple parts of the project.
+We made use of several bash scripts for deployment, to keep them structured we added a folder *bashscripts*.
+Finally we added the folder *dockerfiles* to contain all dockerfiles used for building different parts of the project.
 ### Question 6
 
 > **Did you implement any rules for code quality and format? Additionally, explain with your own words why these**
