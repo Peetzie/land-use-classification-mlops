@@ -128,8 +128,8 @@ s214640, 2174159
 > Answer:
 
 Apart from implementing Pytorch-Lightning and coupling it to Weights and Biases, we did not make heavy use of a third party framework.
-We did, however, make use of for instance Pillow to load the image in out deployed app. This greatly helped as without it we 
-would have to have implemented our own 
+We did, however, make use of for instance Pillow to load the image in out deployed app. This greatly helped as without it we
+would have to have implemented our own
 
 ## Coding environment
 
@@ -148,7 +148,22 @@ would have to have implemented our own
 >
 > Answer:
 
---- question 4 fill here ---
+We made use of a *requirements* file for managing dependencies.
+Neither group memer utilized anaconda, so we each made a virtual enviroment using the build in package from python. Both users utilized
+python 3.10.11, as the newest version of python 3.10.X from the official python website.
+When adding a new package to the project we each ensured to add it to the *requirements* file.
+If required, a specific version was specified of the dependency within the *requirements file*.
+
+In order to obtain a complete copy of the enviroment one would have to do the following:
+1. Install python 3.10.11, make sure to add the executable to PATH.
+2. ```python -m venv <env-name>```
+3. Activate the new enviroment: ```<env-name>/Scripts/activate``` if utilizing windows or ```<env-name>/bin/activate``` for Mac OS / Linux cmd line.
+4. Install the required dependencies: ```pip install -r requirements.txt```, assuming the user is in the root folder of the project
+
+If the user is running Anaconda or Miniconda, the following commands should be used:
+1. ```conda create -n <env-name> python=3.10.11```
+2. ```conda activate <env-name>```
+3. ```pip install -r requirements.txt```
 
 ### Question 5
 
@@ -174,7 +189,16 @@ would have to have implemented our own
 >
 > Answer:
 
---- question 6 fill here ---
+We added the following Pre-commit hooks:
+1. trailing-whitespace
+2. end-of-file-fixer
+3. check-yaml
+4. check-added-large-files
+5. ruff [-fix]
+
+Pre-commit hooks like trailing-whitespace, end-of-file-fixer, check-yaml, check-added-large-files, and ruff with a fix option ensure code quality before commits.
+They trim whitespace, add newlines, validate YAML syntax, prevent large file commits, and lint code consistently.
+Implementing these practices in larger projects maintains codebase quality, streamlining collaboration and adherence to project guidelines.
 
 ## Version control
 
