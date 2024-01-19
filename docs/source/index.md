@@ -1,75 +1,56 @@
-## Documentation
+# Documentation
 
-### Getting started
+## Getting Started
 
-#### Creating a virtual enviroment
-For development it is recommended seting up a virtual enviroment. To ensure compatibility between packages and keeping the global enviroment clean.
+### Creating a Virtual Environment
 
-##### Anaconda / Miniconda users
-For Anaconda or Miniconda users this can be done by creating a virtual enviroment with the following command. This will create a new conda enviroment with **python=3.10** named **project**.
+For development, it is recommended to set up a virtual environment to ensure compatibility between packages and keep the global environment clean.
 
-```
+**Anaconda / Miniconda users**
+
+For Anaconda or Miniconda users, create a virtual environment with the following command. This will generate a new conda environment with **python=3.10** named **project**.
+
+```bash
 make create_environment
 conda activate project
 make requirements
 ```
-All set - Skip ahead to [Getting the data](#getting-the-data)
-##### Using virtualenv
-**NB! Python < 3.11 required**
-```
+
+All set! Skip ahead to [Getting the data](#getting-the-data)
+
+**Virtualenv users**
+#### NB! Python < 3.11 required
+```bash
 python -m venv venv
 ```
-Activate the enviroment
+Activate the enviroment:
 
 Windows users:
-```
-.\venv\Scripts\activate
+```bash
+  .\venv\Scripts\activate
 ```
 
-Mac OS and Linux distributions:
-```
+Mac OS and Linux Distributions
+```bash
 source venv/bin/activate
 ```
-Finally install the dependencies in the *requirements.txt* file.
+Finally, install the depencenies from the *requirements.txt* file
+```bash
+pip install -r requirements.txt
 
 ```
-pip -m install -r requirements.txt
-```
 
+## Getting the Data
 
-#### Getting the data
-In order to obtain the dataset either download the dataset from the [source](https://www.kaggle.com/datasets/apollo2506/landuse-scene-classification), and place into a folder Data placed in the root folder.
+To obtain the dataset, either download it from the [source](https://www.kaggle.com/datasets/apollo2506/landuse-scene-classification) and place it into a folder named *Data* in the root directory.
 
 Alternatively:
-Go to your kaggle account, Scroll to API section and Click Expire API Token to remove previous tokens
-Click on Create New API Token - It will download kaggle.json file on your machine. Place the JSON file in the root folder of the project.
+
+1. Go to your Kaggle account, scroll to the API section, and click "Expire API Token" to remove previous tokens.
+2. Click on "Create New API Token" - it will download the *kaggle.json* file. Place this file in the root folder of the project.
 
 Finally, use the automated script for downloading the dataset:
 
-```
+```bash
 python project/data/make_dataset.py
 ```
-
-#### Code structure
-
-Inside the *project* folder you will find several folders, configs, data, logger, models, visualizations.
-In data we keep a script for making the dataset see section [Getting the data](#getting-the-data).
-Logger contains a Logging class, which has a predefined setup. For any changes to log levels and more please change the settings within there.
-Model contains the convolutional neural network used for the training and prediction of land-use.
-All parameters for the model are pre-defined in the model so far no configuration file is passed. However using the *train_model.py* file from the project root, we pass in configuration files which are stored in the *configs* folder.
-
-#### Testing the code base
-In the project root folder, a tests folder has been created. Utilizing the *pytest* package, the code can be tested.
-Current implemented tests focuses on data testing ensureing the correct format and length to be expected from the download, and the model checks that the expected in- and output matches the expectations respectively.
-
-
-#### Pre-commits
-The repository is set up using pre-commit hooks.
-Current pre-commit hoocks checks the following:
-- Trailing whitespace
-- End of file fixer
-- Check Yaml
-- Check added large files
-- Ruff linting with *fix* applied.
-
-For source explanations please check the [pre-commit docs](https://pre-commit.com/hooks.html)
