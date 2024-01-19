@@ -604,7 +604,7 @@ as all computations has been able to run for free on the CPU.
 >
 > Answer:
 
---- question 25 fill here ---
+![img](figures/diagram.png)
 
 ### Question 26
 
