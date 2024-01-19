@@ -15,7 +15,6 @@ RUN apt-get update && apt-get install -y \
 
 COPY project/ project/
 COPY app/ app/
-COPY logger/ logger/
 COPY requirements.txt requirements.txt
 
 
