@@ -29,6 +29,8 @@ class CNN(LightningModule):
         lr (float): Learning rate for the optimizer
         img_dim (tuple): Image dimensions for the image transformer
 
+    Return: CNN -> LightningModule
+
     """
 
     def __init__(
