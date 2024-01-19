@@ -417,7 +417,7 @@ in the first place and we use standard examples for training, so we suspect ther
 > Answer:
 
 We used the Engine and had an implementation of the Bucket that we never used.
-The bucket is used for storing data to be used by the engine
+The bucket is used for storing data to be used by the engine.
 The engine is used to run virtual machines defined by docker images in order to execute jobs on resources available
 at data-centres around the world
 
@@ -434,7 +434,10 @@ at data-centres around the world
 >
 > Answer:
 
---- question 18 fill here ---
+We used the compute engine in order to run our training images. We were unable to configure GPUs as there was an error
+message indicating a lack of capacity on the EU clusters, thus our training was pretty slow as we ended up using CPUs.
+Our custom container can be found in the dockerfiler folder, where we used the train_model.dockerfile. 
+In addition to this there is also a dockerfile to compile our app which can 
 
 ### Question 19
 
@@ -477,7 +480,12 @@ at data-centres around the world
 >
 > Answer:
 
---- question 22 fill here ---
+We firstly deployed out model using FastAPI. We tested the model locally and established that it was working. We then
+took this application and wrapped into a docker image which was then pushed and deployed on the gcloud. There were 
+lots of problems and errors in the process, especially when container were running locally but not in the cloud. 
+To access the API a user would simply use the requests package in python as shown by our request_test.py script.
+Here one can specify the path to an image in the correct dimensions (open-cv was causing issues so the image is)
+not resized, and get the topN predictions from the model along with the probabilities.
 
 ### Question 23
 
@@ -492,7 +500,14 @@ at data-centres around the world
 >
 > Answer:
 
---- question 23 fill here ---
+
+Setting up monitoring for our deployed CNN model is super important for its long-term success. 
+Think of it like keeping an eye on how well our model is doing over time. We can track stuff 
+like accuracy and how fast it's making predictions. This way, if anything starts acting funky 
+or there are changes in performance, we can catch it early. It's like giving our model regular 
+check-ups, helping us make tweaks or improvements as needed. Monitoring would help ensure that 
+our CNN stays up to date with the latest available data. It may also be beneficial when it comes 
+to catching errors in the API.
 
 ### Question 24
 
@@ -506,7 +521,7 @@ at data-centres around the world
 >
 > Answer:
 
---- question 24 fill here ---
+Fabian has used 0 credits for the experiments run
 
 ## Overall discussion of project
 
@@ -558,4 +573,6 @@ at data-centres around the world
 >
 > Answer:
 
---- question 27 fill here ---
+s214640 was in charge of setting up the initial structure and finding a dataset to use for the model, 
+training the model using gcloud and deployment of the fastAPI app to the gcloud.
+
