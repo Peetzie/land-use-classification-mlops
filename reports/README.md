@@ -569,7 +569,8 @@ to catching errors in the API.
 >
 > Answer:
 
-Fabian has used 0 credits for the experiments run
+We initialized the project with Peetz credit from the coupon. At final stage 0 credits has been used for computation,
+as all computations has been able to run for free on the CPU.
 
 ## Overall discussion of project
 
@@ -604,8 +605,16 @@ Fabian has used 0 credits for the experiments run
 >
 > Answer:
 
---- question 26 fill here ---
 
+Throughout the project, our group encountered several challenges. As briefly mentioned earlier, DVC presented issues, particularly when deployed through GitHub Actions. While locally tracking changes and tagging different data versions worked seamlessly, the integration with GitHub Actions proved unsuccessful. The error codes provided by DVC were not user-friendly, resulting in a prolonged and exhaustive debugging phase.
+
+DVC operates by leveraging hashing to structure data on Google Drive, rendering it unrecognizable. Attempting to create a local copy of the GitHub repository and running DVC Pull provided detailed debugging information, but the process worked flawlessly. Despite efforts to reinsert cached credentials into GitHub secrets, the issues persisted. Consequently, we had to omit this part of the workflow, compromising our goals of implementing CI for testing and all Docker containers.
+
+Given these challenges, we excluded the testing of Docker containers with data, acknowledging its inevitable failure, and focused solely on the application image. The testing workflow was retained to demonstrate its implementation, noting that data and pip installation caching couldn't be thoroughly tested due to persistent issues.
+
+During cloud deployment, permission issues arose due to misconfigurations, adding to the frustration. Additionally, our Docker containers faced difficulties caching pip installations, necessitating a full package redownload in each build. This significantly increased the build time to 20-30 minutes per Docker image.
+
+Finally, structural issues in the project, based on the cookiecutter format, led to difficulties importing Python modules correctly in each file, especially for Python modules.
 ### Question 27
 
 > **State the individual contributions of each team member. This is required information from DTU, because we need to**
