@@ -1,9 +1,10 @@
-import os
-
 import opendatasets as od
+from logger import LoggerConfigurator
 
 dataset_URL = "https://www.kaggle.com/datasets/apollo2506/landuse-scene-classification"
 data_folder = "landuse-scene-classification"
+logger_configurator = LoggerConfigurator("Make Dataset")
+logger = logger_configurator.get_logger()
 
 
 def make_dataset():
@@ -16,6 +17,7 @@ def make_dataset():
 
     """
     od.download(dataset_URL, data_dir="Data/", unzip=True)
+    logger.info("Dataset successfully downloaded")
 
 
 if __name__ == "__main__":
