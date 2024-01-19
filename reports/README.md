@@ -605,6 +605,22 @@ as all computations has been able to run for free on the CPU.
 > Answer:
 
 ![img](figures/diagram.png)
+In this diagram the dev refers to us as developers and the user refers to a potential user
+of our deployed model. Every time we push any code to the master branch the workflow is 
+triggered, however it throws an error due to dvc not being able to download some of the
+data (different files every time). So in theory there is a workflow to ensure that all code
+pushed to main does not break anything.
+When code was deemed to be ready for training we manually built and pushed dockerfiles in
+order to run them on the gcloud. This was also the case for the app deployment. These files
+had a tendency to contain errors not thrown when tested locally. 
+For training we used the gcloud compute engine, only on the CPU thus making it free. Here we 
+used the dockerfiles pushed to the container registry manually in the previous step.
+We could have implemented a continuous trigger to manually build and deploy the dockerfiles
+however this would include some arduous implementation of authentication, and instead we stuck
+to this simple model.
+The deployment is on a gcloud run where anyone can query the application and get a response
+of what our best model says a given image is, including its probabilities.
+
 
 ### Question 26
 
