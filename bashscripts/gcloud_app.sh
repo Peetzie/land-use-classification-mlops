@@ -4,7 +4,7 @@
 GCLOUD_PROJECT="mlops-411314"
 REPO="app-1"   # Name of artifact registry repo
 REGION="europe-west4"
-APPNAME="app-3"  # Name of choice
+APPNAME="app-4"  # Name of choice
 PATH_TO_DOCKERFILE="C:/Users/toell/OneDrive/Documents/GitHub/land-use-classification-mlops/dockerfiles/app.dockerfile"
 IMAGE_TAG="${REGION}-docker.pkg.dev/${GCLOUD_PROJECT}/${REPO}/${APPNAME}"
 
@@ -22,4 +22,5 @@ docker tag "${IMAGE_TAG}" gcr.io/"${GCLOUD_PROJECT}"/"${APPNAME}"
 gcloud auth configure-docker
 docker push gcr.io/"${GCLOUD_PROJECT}"/"${APPNAME}"
 
+# Does not work due to a much longer name being the real one:
 # gcloud run deploy "${APPNAME}" --image "${IMAGE_TAG}" --platform managed --region "${REGION}" --allow-unauthenticated
